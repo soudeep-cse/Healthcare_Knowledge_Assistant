@@ -39,6 +39,11 @@ docker run -p 8000:8000 medical-chatbot
 GOOGLE_API_KEY=your_key
 ```
 
+## Models Used
+
+- **Embedding Model**: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
+- **LLM Model**: `gemini-2.5-flash`
+
 ## Design Notes
 
 **Scalability**: Modular FastAPI architecture enables horizontal scaling through Docker containers. FAISS indices can migrate to distributed storage (Redis/S3) for multi-instance deployments. Service layer abstraction supports async processing with message queues.
