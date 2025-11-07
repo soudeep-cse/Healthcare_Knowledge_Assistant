@@ -10,6 +10,16 @@ Multilingual medical chatbot with FAISS and Gemini LLM supporting English/Japane
 - AI-powered answer generation
 - Cross-language translation
 
+## Project Structure
+
+```
+app/
+├── api/v1/endpoints/    # API route handlers
+├── schemas/             # Pydantic models
+├── services/            # Business logic
+└── main.py             # FastAPI application
+```
+
 ## API Endpoints
 
 - `POST /api/v1/medical/ingest` - Upload documents
