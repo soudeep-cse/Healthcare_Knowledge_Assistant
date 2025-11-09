@@ -34,9 +34,16 @@ class MedicalChatbotService:
     def extract_text(self, file_path):
         ext = os.path.splitext(file_path)[1].lower()
         if ext == ".pdf":
-            return "\n".join([p.extract_text() or "" for p in PyPDFLoader(file_path).pages])
+            loader = PyPDFLoader(file_path)
+            pages = loader.load()
+            return "\n".join([page.page_content for page in pages])
         elif ext in [".png", ".jpg", ".jpeg"]:
-            return pytesseract.image_to_string(Image.open(file_path), lang="eng+jpn")
+            try:
+                # Set tesseract path for Docker
+                pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+                return pytesseract.image_to_string(Image.open(file_path), lang="eng+jpn")
+            except Exception as e:
+                return f"OCR Error: {str(e)}"
         elif ext == ".txt":
             with open(file_path, "r", encoding="utf-8") as f:
                 return f.read()

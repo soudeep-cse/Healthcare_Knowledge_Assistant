@@ -3,9 +3,14 @@ FROM python:3.11-slim
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     tesseract-ocr-jpn \
+    libtesseract-dev \
     gcc \
     g++ \
     && rm -rf /var/lib/apt/lists/*
+
+# Set tesseract environment variables
+ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata/
+ENV PATH="/usr/bin:${PATH}"
 
 WORKDIR /app
 
